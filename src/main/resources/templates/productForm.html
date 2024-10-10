@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Page title for product form -->
+  <title>Product Form</title>
+  <!-- Linking to stylesheet for consistent styling -->
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<!-- Dynamic header: changes based on whether product is being added or edited -->
+<h1 th:text="${product.id} == null ? 'Add Product' : 'Edit Product'"></h1>
+
+<!-- Form to add or edit a product, bound to 'product' object -->
+<form th:action="@{/products}" th:object="${product}" method="post">
+  <!-- Input field for product name -->
+  <label for="name">Name:</label>
+  <input type="text" id="name" th:field="*{name}" required />
+
+  <!-- Input field for product price with validation -->
+  <label for="price">Price:</label>
+  <input type="number" id="price" th:field="*{price}" required />
+
+  <!-- Input for photo URL of the product -->
+  <label for="photo">Photo URL:</label>
+  <input type="text" id="photo" th:field="*{photo}" />
+
+  <!-- Dropdown menu for selecting category of the product -->
+  <label for="category">Category:</label>
+  <select id="category" th:field="*{category.id}" required>
+    <!-- Iterating through categories to populate the options -->
+    <option th:each="category : ${categories}"
+            th:value="${category.id}"
+            th:text="${category.name}"></option>
+  </select>
+
+  <!-- Submit button for saving the product details -->
+  <button type="submit">Save</button>
+
+  <!-- Navigation link to return to main page -->
+  <a class="back-button" th:href="@{/main}">Back</a>
+</form>
+</body>
+</html>

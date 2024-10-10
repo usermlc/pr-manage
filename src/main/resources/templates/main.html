@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Main Page title -->
+  <title>Main Page</title>
+  <!-- Link to styles for the page -->
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<!-- Main header for the Product Management Application -->
+<h1>Welcome to the Product Management Application</h1>
+
+<!-- Navigation container for links to different sections -->
+<div class="nav-container">
+  <!-- Navigation group for product-related links -->
+  <div class="nav-group">
+    <!-- Link to view the list of products -->
+    <a class="nav-button view-button" th:href="@{/products/list}">View Products</a>
+    <!-- Link to add a new product -->
+    <a class="nav-button add-button" th:href="@{/products/add}">Add Product</a>
+  </div>
+
+  <!-- Navigation group for category-related links -->
+  <div class="nav-group">
+    <!-- Link to view the list of categories -->
+    <a class="nav-button view-button" th:href="@{/categories}">View Categories</a>
+    <!-- Link to add a new category -->
+    <a class="nav-button add-button" th:href="@{/categories/add}">Add Categories</a>
+  </div>
+</div>
+</body>
+</html>

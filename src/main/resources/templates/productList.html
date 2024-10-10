@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Page title for product listing -->
+  <title>Product List</title>
+  <!-- Link to external stylesheet for layout and design -->
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<!-- Main heading for the product list -->
+<h1>Product List</h1>
+
+<!-- Form for filtering products by category and price range -->
+<form action="#" method="get">
+  <!-- Dropdown for selecting category filter -->
+  <label for="categoryId">Category:</label>
+  <select id="categoryId" name="categoryId">
+    <option value="">All</option>
+    <!-- Loop through categories to populate options dynamically -->
+    <option th:each="category : ${categories}"
+            th:value="${category.id}"
+            th:text="${category.name}"></option>
+  </select>
+
+  <!-- Input fields for minimum and maximum price filters -->
+  <label for="minPrice">Min Price:</label>
+  <input type="number" id="minPrice" name="minPrice" step="0.01" />
+
+  <label for="maxPrice">Max Price:</label>
+  <input type="number" id="maxPrice" name="maxPrice" step="0.01" />
+
+  <!-- Button to apply the filter settings -->
+  <button type="submit">Filter</button>
+</form>
+
+<!-- Table displaying the list of products -->
+<table>
+  <thead>
+  <tr>
+    <!-- Column headers for product attributes -->
+    <th>ID</th>
+    <th>Name</th>
+    <th>Price</th>
+    <th>Photo</th>
+    <th>Category</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!-- Iterating through products to populate rows -->
+  <tr th:each="product : ${page.content}">
+    <td th:text="${product.id}"></td>
+    <td th:text="${product.name}"></td>
+    <td th:text="${product.price}"></td>
+    <td>
+      <!-- Displaying product photo with specified size -->
+      <img th:src="${product.photo}" alt="Product Photo" style="width: 100px; height: auto;" />
+    </td>
+    <td th:text="${product.category.name}"></td>
+  </tr>
+  <!-- Display message if no products match the filter criteria -->
+  <tr th:if="${#lists.isEmpty(page.content)}">
+    <td colspan="5">No products found.</td>
+  </tr>
+  </tbody>
+</table>
+
+<!-- Pagination controls to navigate through product pages -->
+<div>
+  <a th:if="${page.hasPrevious()}"
+     th:href="@{/products/list(page=${page.previousPageable.pageNumber}, size=${page.size})}" class="pagination-button">
+    Previous
+  </a>
+  <!-- Display current page number -->
+  <span th:text="${page.number + 1}"></span>
+  <a th:if="${page.hasNext()}"
+     th:href="@{/products/list(page=${page.nextPageable.pageNumber}, size=${page.size})}" class="pagination-button">
+    Next
+  </a>
+</div>
+
+<!-- Link to return to the main page -->
+<a class="back-button" th:href="@{/main}">Back</a>
+</body>
+</html>

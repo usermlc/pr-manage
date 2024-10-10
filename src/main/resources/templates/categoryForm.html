@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <!-- Title of the form page -->
+  <title>Category Form</title>
+  <!-- Linking to main stylesheet -->
+  <link rel="stylesheet" type="text/css" href="/css/styles.css">
+</head>
+<body>
+<!-- Dynamic heading based on category presence -->
+<h1 th:text="${category.id} == null ? 'Add Category' : 'Edit Category'"></h1>
+
+<!-- Form for adding or editing a category -->
+<form th:action="@{/categories}" th:object="${category}" method="post">
+  <!-- Category name input field -->
+  <label for="name">Name:</label>
+  <input type="text" id="name" th:field="*{name}" required />
+
+  <!-- Button to save changes or add a new category -->
+  <button type="submit">Save</button>
+
+  <!-- Link back to main page -->
+  <a class="back-button" th:href="@{/main}">Back</a>
+</form>
+</body>
+</html>
